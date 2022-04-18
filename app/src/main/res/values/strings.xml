@@ -3,5 +3,8 @@
     <string name="greeting">NMedia!</string>
     <string name="description_post_author_avatar">Post author avatar</string>
     <string name="description_post_menu">Post menu</string>
-    <string name="icon_favorite" translatable="false">Icon favorite</string>
+    <string name="icon_favorite">Icon favorite</string>
+    <string name="description_post_like">Like</string>
+    <string name="description_post_share">Share</string>
+
 </resources>
