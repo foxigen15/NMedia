@@ -34,29 +34,19 @@ class MainActivity : AppCompatActivity() {
                     if (post.likedByMe) R.drawable.ic_like_filed_24 else R.drawable.ic_like_24
                 )
 
-
-//                like.setOnClickListener {
-//                    Log.d("stuff", "like")
-//                    post.likedByMe = !post.likedByMe
-//                    like.setImageResource(
-//                        if (post.likedByMe) R.drawable.ic_like_filed_24 else R.drawable.ic_like_24
-//                    )
-//                    if (post.likedByMe) post.likes++ else post.likes--
-//                    likeCount.text = format(post.likes)
-//                }
-
-                share.setOnClickListener {
-                    shareCount.text = format(post.shares++)
-                }
-
-                views.setOnClickListener {
-                    viewsCount.text = format(post.views++)
-                }
-
             }
             binding.like.setOnClickListener {
                 viewModel.onLikeClicked()
             }
+
+            binding.share.setOnClickListener{
+                viewModel.onShareClicked()
+            }
+
+            binding.views.setOnClickListener{
+                viewModel.views()
+            }
+
         }
     }
 
@@ -72,6 +62,5 @@ class MainActivity : AppCompatActivity() {
         val notation = Math.pow(10.0, size.toDouble())
         return if (size >= 3) ((Math.round(number / notation * 100) / 100.0).toString() + suffix[size / 3 - 1]) else number.toString() + ""
     }
-
 
 }

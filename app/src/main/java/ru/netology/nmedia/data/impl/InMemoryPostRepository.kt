@@ -27,10 +27,26 @@ class InMemoryPostRepository : PostRepository {
 
         val likedPost = currentPost.copy(
             likedByMe = !currentPost.likedByMe
-         )
+        )
         if (currentPost.likedByMe) likedPost.likes-- else likedPost.likes++
 
         data.value = likedPost
 
+    }
+
+    override fun share() {
+        val currentPost = checkNotNull(data.value) {
+            "Data value should not be null"
+        }
+        currentPost.shares++
+        data.value = currentPost
+    }
+
+    override fun views() {
+        val currentPost = checkNotNull(data.value) {
+            "Data value should not be null"
+        }
+        currentPost.views++
+        data.value = currentPost
     }
 }
