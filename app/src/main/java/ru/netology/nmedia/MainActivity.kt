@@ -2,9 +2,11 @@ package ru.netology.nmedia
 
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import ru.netology.nmedia.databinding.ActivityMainBinding
+import ru.netology.nmedia.databinding.PostBinding
 import ru.netology.nmedia.dto.Post
 import ru.netology.nmedia.viewModel.PostViewModel
 
@@ -19,35 +21,39 @@ class MainActivity : AppCompatActivity() {
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        viewModel.data.observe(this) { post ->
-
-            with(binding) {
-                authorTextView.text = post.author
-                publisherTextView.text = post.published
-                content.text = post.content
-
-                likeCount.text = format(post.likes)
-                shareCount.text = format(post.shares)
-                viewsCount.text = format(post.views)
-
-                like.setImageResource(
-                    if (post.likedByMe) R.drawable.ic_like_filed_24 else R.drawable.ic_like_24
-                )
-
-            }
-            binding.like.setOnClickListener {
-                viewModel.onLikeClicked()
-            }
-
-            binding.share.setOnClickListener{
-                viewModel.onShareClicked()
-            }
-
-            binding.views.setOnClickListener{
-                viewModel.views()
-            }
+        viewModel.data.observe(this) { posts ->
+            binding.render(posts)
 
         }
+
+    }
+
+    private fun ActivityMainBinding.render(posts: List<Post>) {
+        for (post in posts) {
+            PostBinding.inflate(
+                layoutInflater, postsLinearLayout, true
+            ).render(post)
+
+        }
+    }
+
+    private fun PostBinding.render(post: Post) {
+        authorTextView.text = post.author
+        publisherTextView.text = post.published
+        content.text = post.content
+
+        likeCount.text = format(post.likes)
+        shareCount.text = format(post.shares)
+        viewsCount.text = format(post.views)
+
+        like.setImageResource(
+            if (post.likedByMe) R.drawable.ic_like_filed_24 else R.drawable.ic_like_24
+        )
+
+        like.setOnClickListener { viewModel.onLikeClicked(post)}
+//        share.setOnClickListener {viewModel.onShareClicked(post)}
+//        views.setOnClickListener {viewModel.views(post)}
+
     }
 
     private fun format(number: Int): String {
@@ -64,3 +70,8 @@ class MainActivity : AppCompatActivity() {
     }
 
 }
+
+
+
+
+
