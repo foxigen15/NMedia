@@ -11,7 +11,8 @@ import ru.netology.nmedia.dto.Post
 import kotlin.properties.Delegates
 
 internal class PostsAdapter(
-    private val onLikeClicked: (Post) -> Unit
+    private val onLikeClicked: (Post) -> Unit,
+    private val onShareClicked: (Post) -> Unit
 ) : ListAdapter<Post, PostsAdapter.ViewHolder>(DiffCallBack ) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -42,7 +43,7 @@ internal class PostsAdapter(
             )
 
             like.setOnClickListener { onLikeClicked(post) }
-//          share.setOnClickListener {viewModel.onShareClicked(post)}
+            share.setOnClickListener {onShareClicked(post)}
 //          views.setOnClickListener {viewModel.views(post)}
         }
 

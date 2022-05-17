@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val adapter = PostsAdapter(viewModel::onLikeClicked)
+        val adapter = PostsAdapter(viewModel::onLikeClicked, viewModel::onShareClicked)
         binding.postsRecyclerView.adapter = adapter
         viewModel.data.observe(this) { posts ->
             adapter.submitList(posts)
